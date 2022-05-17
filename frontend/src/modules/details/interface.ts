@@ -61,6 +61,7 @@ export interface RawDetailsProperties {
   information_desks: number[];
   labels: number[];
   advice: string;
+  gear: string | null;
   points_reference: RawMultiPointGeometry | null;
   children: number[];
   web_links: RawWebLink[];
@@ -79,6 +80,7 @@ export interface DetailsHtml {
   description: string;
   disabledInfrastructure: string;
   advice: string;
+  gear: string |null;
 }
 
 export interface DetailsInformation {
