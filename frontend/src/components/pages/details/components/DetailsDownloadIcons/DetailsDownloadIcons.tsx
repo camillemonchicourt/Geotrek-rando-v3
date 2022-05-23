@@ -16,6 +16,7 @@ import { TouristicContentDetails } from '../../../../../modules/touristicContent
 import { TouristicEventDetails } from '../../../../../modules/touristicEvent/interface';
 import { getGlobalConfig } from '../../../../../modules/utils/api.config';
 import { DetailsButtonDropdown } from '../DetailsButtonDropdown';
+import ToolTip from 'components/ToolTip';
 
 interface DetailsTopIconsProps {
   details:
@@ -96,27 +97,35 @@ export const DetailsDownloadIcons: React.FC<DetailsTopIconsProps> = ({
 
       <div className="flex space-x-4">
         {details.pdfUri && (
-          <DetailsButton url={details.pdfUri}>
-            <Printer size={30} />
-          </DetailsButton>
+          <ToolTip toolTipText="Imprimer">
+            <DetailsButton url={details.pdfUri}>
+              <Printer size={30} />
+            </DetailsButton>
+          </ToolTip>
         )}
 
         {dropdownButtonOptions.length > 0 && (
-          <DetailsButtonDropdown options={dropdownButtonOptions}>
-            <Download className="text-primary1" size={size} />
-          </DetailsButtonDropdown>
+          <ToolTip toolTipText="Télécharger">
+            <DetailsButtonDropdown options={dropdownButtonOptions}>
+              <Download className="text-primary1" size={size} />
+            </DetailsButtonDropdown>
+          </ToolTip>
         )}
 
         {Number(details.id) && !hideReport && getGlobalConfig().enableReport && (
-          <DetailsButton onClick={() => setOpenReport(true)}>
-            <AlertTriangle size={size} />
-          </DetailsButton>
+          <ToolTip toolTipText="Signaler un problème">
+            <DetailsButton onClick={() => setOpenReport(true)}>
+              <AlertTriangle size={size} />
+            </DetailsButton>
+          </ToolTip>
         )}
 
         {is3DfeatureEnabled && (
-          <DetailsButton onClick={() => setOpen3D(true)}>
-            <ThreeDMap size={size} />
-          </DetailsButton>
+          <ToolTip toolTipText="Afficher la 3D">
+            <DetailsButton onClick={() => setOpen3D(true)}>
+              <ThreeDMap size={size} />
+            </DetailsButton>
+          </ToolTip>
         )}
       </div>
     </div>
