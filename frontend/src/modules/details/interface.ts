@@ -20,6 +20,7 @@ import { InformationDesk } from 'modules/informationDesk/interface';
 import { Label } from 'modules/label/interface';
 import { TrekResult } from 'modules/results/interface';
 import { SensitiveArea } from 'modules/sensitiveArea/interface';
+import { TrekRatingWithScale } from '../trekRating/interface';
 
 export interface RawDetails {
   type: string;
@@ -68,6 +69,8 @@ export interface RawDetailsProperties {
   elevation_area_url: string;
   altimetric_profile: string;
   reservation_id?: string;
+  ratings: number[];
+  ratings_description: string;
 }
 
 // Fields parsed with react-html-parser in page
@@ -80,7 +83,9 @@ export interface DetailsHtml {
   description: string;
   disabledInfrastructure: string;
   advice: string;
-  gear: string |null;
+  gear: string | null;
+  ratings: TrekRatingWithScale[];
+  ratingsDescription: string;
 }
 
 export interface DetailsInformation {
