@@ -1,3 +1,4 @@
+import { getSignage } from 'modules/signage/connector';
 import { getSensitiveAreas } from 'modules/sensitiveArea/connector';
 import { getGlobalConfig } from 'modules/utils/api.config';
 import { getCities } from '../city/connector';
@@ -35,6 +36,7 @@ export const getOutdoorCourseDetails = async (
       outdoorRating,
       outdoorRatingScale,
       outdoorCourseType,
+      signage,
       sensitiveAreas
     ] = await Promise.all([
       fetchOutdoorCourseDetails({ language }, id),
@@ -44,6 +46,7 @@ export const getOutdoorCourseDetails = async (
       getOutdoorRating(language),
       getOutdoorRatingScale(language),
       getOutdoorCourseType(language),
+      getSignage(language, id, 'OUTDOOR_COURSE'),
       getGlobalConfig().enableSensitiveAreas
           ? getSensitiveAreas("outdoorCourse", Number(id), language)
           : [],
@@ -57,6 +60,7 @@ export const getOutdoorCourseDetails = async (
       outdoorRating,
       outdoorRatingScale,
       outdoorCourseType,
+      signage,
       sensitiveAreas
     });
   } catch (e) {

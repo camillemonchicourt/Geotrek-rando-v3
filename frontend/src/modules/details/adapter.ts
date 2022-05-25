@@ -1,4 +1,4 @@
-import { AccessibilityDictionnary } from 'modules/accessibility/interface';
+import { AccessibilityDictionnary, AccessibilityLevel } from 'modules/accessibility/interface';
 import { Activity } from 'modules/activities/interface';
 import { CityDictionnary } from 'modules/city/interface';
 import { CourseType } from 'modules/filters/courseType/interface';
@@ -13,6 +13,7 @@ import { dataUnits } from 'modules/results/adapter';
 import { TrekResult } from 'modules/results/interface';
 import { formatDistance } from 'modules/results/utils';
 import { SensitiveArea } from 'modules/sensitiveArea/interface';
+import { SignageDictionary } from 'modules/signage/interface';
 import { SourceDictionnary } from 'modules/source/interface';
 import { TouristicContent } from 'modules/touristicContent/interface';
 import { getAttachments } from 'modules/utils/adapter';
@@ -23,6 +24,7 @@ import { TrekRatingChoices } from '../trekRating/interface';
 import { Details, RawDetails, Reservation, TrekChildGeometry, TrekFamily } from './interface';
 
 export const adaptResults = ({
+  accessbilityLevel,
   rawDetails: { properties: rawDetailsProperties, geometry, bbox },
   activity,
   difficulty,
@@ -39,10 +41,12 @@ export const adaptResults = ({
   children,
   childrenGeometry,
   sensitiveAreas,
+  signage,
   reservation,
   trekRating,
   trekRatingScale,
 }: {
+  accessbilityLevel: AccessibilityLevel | null;
   rawDetails: RawDetails;
   activity: Activity | null;
   difficulty: Difficulty | null;
@@ -59,6 +63,7 @@ export const adaptResults = ({
   children: TrekResult[];
   childrenGeometry: TrekChildGeometry[];
   sensitiveAreas: SensitiveArea[];
+  signage: SignageDictionary | null;
   reservation: Reservation | null;
   trekRating: TrekRatingChoices;
   trekRatingScale: TrekRatingScale[];
@@ -69,6 +74,14 @@ export const adaptResults = ({
         ? flattenMultiLineStringCoordinates(geometry.coordinates)
         : geometry.coordinates;
     return {
+      accessbilityLevel,
+      accessibility_signage: rawDetailsProperties.accessibility_signage ?? null,
+      accessibility_slope: rawDetailsProperties.accessibility_slope ?? null,
+      accessibility_width: rawDetailsProperties.accessibility_width ?? null,
+      accessibility_advice: rawDetailsProperties.accessibility_advice ?? null,
+      accessibility_covering: rawDetailsProperties.accessibility_covering ?? null,
+      accessibility_exposure: rawDetailsProperties.accessibility_exposure ?? null,
+      attachmentsAccessibility: rawDetailsProperties.attachments_accessibility ?? null,
       id: Number(rawDetailsProperties.id),
       title: rawDetailsProperties.name,
       place: cityDictionnary[rawDetailsProperties.departure_city]
@@ -90,6 +103,7 @@ export const adaptResults = ({
             : null,
         distance: `${formatDistance(rawDetailsProperties.length_2d)}`,
         elevation: `+${rawDetailsProperties.ascent}${dataUnits.distance}`,
+        negativeElevation: `${rawDetailsProperties.descent}${dataUnits.distance}`,
         networks: rawDetailsProperties.networks.map(networkId => networks[networkId]),
         difficulty,
         courseType,
@@ -153,6 +167,8 @@ export const adaptResults = ({
       altimetricProfileUrl: rawDetailsProperties.altimetric_profile,
       length2d: rawDetailsProperties.length_2d,
       reservation,
+      reservation_id: rawDetailsProperties.reservation_id ?? null,
+      signage,
       reservation_id: rawDetailsProperties.reservation_id,
       ratings:
         rawDetailsProperties.ratings?.map(r => {

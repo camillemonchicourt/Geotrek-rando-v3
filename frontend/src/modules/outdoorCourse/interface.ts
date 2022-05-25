@@ -1,4 +1,16 @@
 import { Bbox } from 'modules/details/interface';
+import {
+  Attachment,
+  LineStringGeometry,
+  MultiLineStringGeometry,
+  MultiPointGeometry,
+  MultiPolygonGeometry,
+  PointGeometry,
+  PolygonGeometry,
+  RawAttachment,
+  RawGeometryCollection,
+} from 'modules/interface';
+import { SignageDictionary } from 'modules/signage/interface';
 import { Attachment, RawAttachment, RawGeometryCollection } from 'modules/interface';
 import { LineStringGeometry, PointGeometry, PolygonGeometry } from 'modules/interface';
 import { SensitiveArea } from 'modules/sensitiveArea/interface';
@@ -21,6 +33,7 @@ export interface RawOutdoorCourse {
 }
 
 interface RawOutdoorCourseDetailsProperties extends RawOutdoorCourse {
+  accessibility?: string;
   advice?: string;
   children?: string;
   description?: string;
@@ -43,10 +56,17 @@ export interface RawOutdoorCourseDetails extends RawOutdoorCourse {
 }
 
 export interface OutdoorCourse {
+  accessibility?: string;
   id: string;
   name: string;
   attachments: Attachment[];
-  geometry: PointGeometry | PolygonGeometry | LineStringGeometry;
+  geometry:
+    | PolygonGeometry
+    | MultiPolygonGeometry
+    | LineStringGeometry
+    | MultiLineStringGeometry
+    | PointGeometry
+    | MultiPointGeometry;
   thumbnailUris: string[];
   duration: string | null;
   maxElevation: number;
@@ -70,5 +90,6 @@ export interface OutdoorCourseDetails extends OutdoorCourse {
   ratings: OutdoorRatingWithScale[];
   ratingsDescription: string;
   typeCourse?: OutdoorCourseType;
+  signage: SignageDictionary | null;
   sensitiveAreas: SensitiveArea[];
 }

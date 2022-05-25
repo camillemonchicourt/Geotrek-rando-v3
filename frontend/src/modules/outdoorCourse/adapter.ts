@@ -1,3 +1,4 @@
+import { SignageDictionary } from 'modules/signage/interface';
 import { SensitiveArea } from 'modules/sensitiveArea/interface';
 import { getAttachments, getThumbnails } from 'modules/utils/adapter';
 import { adaptGeometry } from 'modules/utils/geometry';
@@ -49,6 +50,7 @@ export const adaptOutdoorCourseDetails = ({
   outdoorRating,
   outdoorRatingScale,
   outdoorCourseType,
+  signage,
   sensitiveAreas
 }: {
   rawOutdoorCourseDetails: RawOutdoorCourseDetails;
@@ -58,6 +60,7 @@ export const adaptOutdoorCourseDetails = ({
   outdoorRating: OutdoorRatingChoices;
   outdoorRatingScale: OutdoorRatingScale[];
   outdoorCourseType: OutdoorSiteTypeChoices;
+  signage: SignageDictionary | null;
   sensitiveAreas: SensitiveArea[];
 }): OutdoorCourseDetails => {
   return {
@@ -72,6 +75,7 @@ export const adaptOutdoorCourseDetails = ({
       cityDictionnary,
     })[0],
     // then we add missing fields
+    accessibility: rawOutdoorCourseDetails.properties.accessibility,
     description: rawOutdoorCourseDetails.properties.description,
     bbox: {
       corner1: { x: rawOutdoorCourseDetails.bbox[0], y: rawOutdoorCourseDetails.bbox[1] },
@@ -96,6 +100,7 @@ export const adaptOutdoorCourseDetails = ({
     ratingsDescription: rawOutdoorCourseDetails.properties.ratings_description,
     typeCourse: outdoorCourseType[Number(rawOutdoorCourseDetails?.properties?.type)],
     id: rawOutdoorCourseDetails.id,
+    signage,
     sensitiveAreas
   };
 };
