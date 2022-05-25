@@ -63,7 +63,7 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
     setDescriptionRef,
     setPracticalInformationsRef,
     setTouristicContentsRef,
-    setSensitiveAreasRef
+    setSensitiveAreasRef,
   } = useOutdoorSite(outdoorSiteUrl, language);
 
   const intl = useIntl();
@@ -135,7 +135,7 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                         className={!isFullscreen ? 'desktop:h-coverDetailsDesktop' : 'h-full'}
                       >
                         {outdoorSiteContent.attachments.length > 1 &&
-                        navigator &&
+                        typeof navigator !== 'undefined' &&
                         navigator?.onLine ? (
                           <DetailsCoverCarousel
                             attachments={outdoorSiteContent.attachments}
@@ -334,7 +334,8 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                     )}
 
                     {getGlobalConfig().enableMeteoWidget &&
-                      navigator && navigator.onLine &&
+                      typeof navigator !== 'undefined' &&
+                      navigator.onLine &&
                       outdoorSiteContent.cities_raw &&
                       outdoorSiteContent.cities_raw[0] && (
                         <DetailsSection>

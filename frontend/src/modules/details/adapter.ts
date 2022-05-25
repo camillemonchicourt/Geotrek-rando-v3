@@ -169,7 +169,6 @@ export const adaptResults = ({
       reservation,
       reservation_id: rawDetailsProperties.reservation_id ?? null,
       signage,
-      reservation_id: rawDetailsProperties.reservation_id,
       ratings:
         rawDetailsProperties.ratings?.map(r => {
           return {

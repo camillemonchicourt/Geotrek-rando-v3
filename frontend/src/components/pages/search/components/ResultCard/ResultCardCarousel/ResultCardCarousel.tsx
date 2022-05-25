@@ -24,7 +24,10 @@ export const ResultCardCarousel: React.FC<ResultCardCarouselProps> = ({
     publicRuntimeConfig: { colors },
   } = getConfig();
 
-  const files = navigator && navigator?.onLine ? thumbnailUris : thumbnailUris.slice(0, 1);
+  const files =
+    typeof navigator !== 'undefined' && navigator?.onLine
+      ? thumbnailUris
+      : thumbnailUris.slice(0, 1);
 
   return (
     <div

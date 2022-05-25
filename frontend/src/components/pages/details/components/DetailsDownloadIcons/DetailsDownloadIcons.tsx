@@ -101,11 +101,8 @@ export const DetailsDownloadIcons: React.FC<DetailsTopIconsProps> = ({
         )}
 
         {Number(details.id) && !hideReport && getGlobalConfig().enableReport && (
-          <DetailsButton url="#details_report" onClick={() => setReportVisibility(true)}>
-            <AlertTriangle size={size} />
-          </DetailsButton>
           <ToolTip toolTipText="Signaler un problème">
-            <DetailsButton onClick={() => setOpenReport(true)}>
+            <DetailsButton url="#details_report" onClick={() => setReportVisibility(true)}>
               <AlertTriangle size={size} />
             </DetailsButton>
           </ToolTip>
@@ -115,9 +112,11 @@ export const DetailsDownloadIcons: React.FC<DetailsTopIconsProps> = ({
           (details as Details).reservation_id &&
           getGlobalConfig().reservationPartner &&
           getGlobalConfig().reservationProject && (
-            <DetailsButton url="#details_reservation">
-              <Reservation width={30} height={30} />
-            </DetailsButton>
+            <ToolTip toolTipText="Réserver">
+              <DetailsButton url="#details_reservation">
+                <Reservation width={30} height={30} />
+              </DetailsButton>
+            </ToolTip>
           )}
 
         {is3DfeatureEnabled && (
