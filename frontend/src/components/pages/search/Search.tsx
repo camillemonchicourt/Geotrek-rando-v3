@@ -133,7 +133,9 @@ export const SearchUI: React.FC<Props> = ({ language }) => {
           {!isMobile && (
             <FilterBarNew
               filtersState={filtersState}
+              dateFilter={dateFilter}
               setFilterSelectedOptions={setFilterSelectedOptions}
+              setDateFilter={setDateFilter}
               resetFilters={onRemoveAllFiltersClick}
               resultsNumber={searchResults?.resultsNumber ?? 0}
               language={language}
@@ -159,7 +161,7 @@ export const SearchUI: React.FC<Props> = ({ language }) => {
                       <SearchResultsMeta resultsNumber={searchResults?.resultsNumber ?? 0} />
                       <ToggleFilterButton onClick={displayMenu} numberSelected={numberSelected} />
                     </div>
-                    <div className="flex items-center mt-4 desktop:mt-0 desktop:ml-5">
+                    {/* <div className="flex items-center mt-4 desktop:mt-0 desktop:ml-5">
                       <InputDateWithMagnifier
                         value={dateFilter.beginDate}
                         onChange={(event) => {setDateFilter({beginDate:event.target.value, endDate:dateFilter.endDate})}}
@@ -172,7 +174,7 @@ export const SearchUI: React.FC<Props> = ({ language }) => {
                         onChange={(event) => {setDateFilter({beginDate:dateFilter.beginDate, endDate:event.target.value})}}
                         placeholder={intl.formatMessage({ id: 'search.endDateFilter' })}
                       />
-                    </div>
+                    </div> */}
                     <div className="flex items-center mt-4 desktop:mt-0 desktop:ml-5">
                       <InputWithMagnifier
                         value={textFilterInput}
