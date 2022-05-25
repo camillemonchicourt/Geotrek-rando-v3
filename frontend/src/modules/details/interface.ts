@@ -81,17 +81,6 @@ export interface RawDetailsProperties {
   networks: number[];
   parking_location: RawCoordinate2D | null;
   pdf: string;
-  gpx: string;
-  kml: string;
-  departure_city: string;
-  arrival_city: string;
-  disabled_infrastructure: string;
-  accessibilities: number[];
-  source: number[];
-  information_desks: number[];
-  labels: number[];
-  advice: string;
-  gear: string | null;
   points_reference: RawMultiPointGeometry | null;
   practice: number | null;
   public_transport: string;
@@ -99,6 +88,7 @@ export interface RawDetailsProperties {
   source: number[];
   themes: number[];
   web_links: RawWebLink[];
+  gear: string | null;
   ratings: number[];
   ratings_description: string;
 }
@@ -196,6 +186,7 @@ export interface Details extends DetailsHtml {
   reservation: Reservation | null;
   reservation_id: string | null;
   signage: SignageDictionary | null;
+  gear: string | null;
 }
 
 export interface WebLink {

@@ -3,7 +3,7 @@
   "mapResultsPageSize": 250,
   "maxPoiPerPage": 50,
   "maxTouristicContentPerPage": 50,
-  "enableSensitiveAreas": false,
+  "enableSensitiveAreas": true,
   "enableOutdoor": true,
   "enableTouristicEvents": true,
   "portalIds": [1],

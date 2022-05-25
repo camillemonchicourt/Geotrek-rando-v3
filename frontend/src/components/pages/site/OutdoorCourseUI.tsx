@@ -51,7 +51,7 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
     setPreviewRef,
     setPoisRef,
     setTouristicContentsRef,
-    setSensitiveAreasRef
+    setSensitiveAreasRef,
   } = useOutdoorCourse(outdoorCourseUrl, language);
 
   const intl = useIntl();
@@ -123,7 +123,7 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
                         className={!isFullscreen ? 'desktop:h-coverDetailsDesktop' : 'h-full'}
                       >
                         {outdoorCourseContent.attachments.length > 1 &&
-                        navigator &&
+                        typeof navigator !== 'undefined' &&
                         navigator?.onLine ? (
                           <DetailsCoverCarousel
                             attachments={outdoorCourseContent.attachments}
@@ -314,7 +314,8 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
                     )}
 
                     {getGlobalConfig().enableMeteoWidget &&
-                      navigator && navigator.onLine &&
+                      typeof navigator !== 'undefined' &&
+                      navigator.onLine &&
                       outdoorCourseContent.cities_raw &&
                       outdoorCourseContent.cities_raw[0] && (
                         <DetailsSection>
