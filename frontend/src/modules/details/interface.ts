@@ -21,6 +21,7 @@ import { Label } from 'modules/label/interface';
 import { TrekResult } from 'modules/results/interface';
 import { SensitiveArea } from 'modules/sensitiveArea/interface';
 import { SignageDictionary } from 'modules/signage/interface';
+import { TrekRatingWithScale } from '../trekRating/interface';
 
 export interface RawDetails {
   type: string;
@@ -80,6 +81,17 @@ export interface RawDetailsProperties {
   networks: number[];
   parking_location: RawCoordinate2D | null;
   pdf: string;
+  gpx: string;
+  kml: string;
+  departure_city: string;
+  arrival_city: string;
+  disabled_infrastructure: string;
+  accessibilities: number[];
+  source: number[];
+  information_desks: number[];
+  labels: number[];
+  advice: string;
+  gear: string | null;
   points_reference: RawMultiPointGeometry | null;
   practice: number | null;
   public_transport: string;
@@ -87,6 +99,8 @@ export interface RawDetailsProperties {
   source: number[];
   themes: number[];
   web_links: RawWebLink[];
+  ratings: number[];
+  ratings_description: string;
 }
 
 // Fields parsed with react-html-parser in page
@@ -99,6 +113,9 @@ export interface DetailsHtml {
   description: string;
   disabledInfrastructure: string;
   advice: string;
+  gear: string | null;
+  ratings: TrekRatingWithScale[];
+  ratingsDescription: string;
 }
 
 export interface DetailsInformation {

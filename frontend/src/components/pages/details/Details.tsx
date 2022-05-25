@@ -43,6 +43,7 @@ import { VisibleSectionProvider } from './VisibleSectionContext';
 import { DetailsAndMapProvider } from './DetailsAndMapContext';
 import { DetailsSensitiveArea } from './components/DetailsSensitiveArea';
 import { useOnScreenSection } from './hooks/useHighlightedSection';
+import { DetailsGear } from './components/DetailsGear';
 
 interface Props {
   detailsId: string | string[] | undefined;
@@ -235,6 +236,7 @@ export const DetailsUIWithoutContext: React.FC<Props> = ({ detailsId, parentId, 
                       </div>
                     )}
                     {getGlobalConfig().enableMeteoWidget &&
+                      navigator && navigator.onLine &&
                       details.cities_raw &&
                       details.cities_raw[0] && (
                         <DetailsSection>
@@ -293,6 +295,9 @@ export const DetailsUIWithoutContext: React.FC<Props> = ({ detailsId, parentId, 
                             className={i < details.labels.length - 1 ? 'mt-4 desktop:mt-6' : ''}
                           />
                         ))}
+                        {details.gear !== null && (
+                          <DetailsGear text={details.gear} className="mt-4 desktop:mb-6" />
+                        )}
                       </DetailsSection>
                     )}
 
@@ -433,7 +438,8 @@ export const DetailsUIWithoutContext: React.FC<Props> = ({ detailsId, parentId, 
                       </div>
                     )}
 
-                    {details.reservation && details.reservation_id && (
+                    {details.reservation && details.reservation_id &&
+                      navigator && navigator.onLine && (
                       <DetailsSection
                         className={marginDetailsChild}
                         htmlId="details_reservation"
