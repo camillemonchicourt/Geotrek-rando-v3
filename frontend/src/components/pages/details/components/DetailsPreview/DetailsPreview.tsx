@@ -200,22 +200,24 @@ export const DetailsPreview: React.FC<DetailsPreviewProps> = ({
           </ToolTip>
         )}
         {informations.elevation && (
-          <ToolTip toolTipText="Elevation" bottom="80%" reverse={true}>
+          <ToolTip toolTipText="Dénivelé positif" bottom="80%" reverse={true}>
             <LocalIconInformation icon={TrendingUp} className={classNameInformation}>
               {informations.elevation}
             </LocalIconInformation>
           </ToolTip>
         )}
         {informations.negativeElevation && (
-          <LocalIconInformation
-            icon={TrendingUp}
-            iconProps={{
-              className: 'transform -scale-y-100',
-            }}
-            className={classNameInformation}
-          >
-            {informations.negativeElevation}
-          </LocalIconInformation>
+          <ToolTip toolTipText="Dénivelé négatif" bottom="80%" reverse={true}>
+            <LocalIconInformation
+              icon={TrendingUp}
+              iconProps={{
+                className: 'transform -scale-y-100',
+              }}
+              className={classNameInformation}
+            >
+              {informations.negativeElevation}
+            </LocalIconInformation>
+          </ToolTip>
         )}
         {informations.maxElevation && (
           <ToolTip toolTipText="Altitude" bottom="80%" reverse={true}>
