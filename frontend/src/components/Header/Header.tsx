@@ -28,12 +28,12 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      {headerTop !== undefined && <div id="header_topHtml">{parse(headerTop)}</div>}
+      {typeof headerTop !== 'undefined' && <div id="header_topHtml">{parse(headerTop)}</div>}
       <BurgerMenu config={config.menu} displayState={headerState} menuItems={menuItems} />
       <Container
         state={headerState}
         className="h-11 bg-primary1 flex flex-row items-center sticky z-header px-3 shadow-sm text-primary3 flex-shrink-0"
-        style={{zIndex:2}}
+        style={{ zIndex: 2 }}
         id="header"
       >
         <Link href={routes.HOME} className="flex items-center">
@@ -67,7 +67,9 @@ export const Header: React.FC = () => {
         )}
         <GoToSearchButton className="hidden desktop:block" />
       </Container>
-      {headerBottom !== undefined && <div id="header_bottomHtml">{parse(headerBottom)}</div>}
+      {typeof headerBottom !== 'undefined' && (
+        <div id="header_bottomHtml">{parse(headerBottom)}</div>
+      )}
     </>
   );
 };
