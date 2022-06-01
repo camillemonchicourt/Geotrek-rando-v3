@@ -85,6 +85,7 @@ export interface DetailsInformation {
   duration?: string | null;
   distance?: string | null;
   elevation?: string | null;
+  negativeElevation?: string | null;
   difficulty?: Difficulty | null;
   courseType?: CourseType | null;
   networks?: Network[];

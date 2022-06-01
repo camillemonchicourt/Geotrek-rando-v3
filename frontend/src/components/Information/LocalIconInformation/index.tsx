@@ -6,6 +6,7 @@ import { Information } from '../BaseInformation';
 export interface Props {
   icon: React.FC<GenericIconProps>;
   children: React.ReactNode;
+  iconProps?: GenericIconProps;
   className?: string;
 }
 
