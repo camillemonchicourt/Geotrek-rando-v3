@@ -21,7 +21,6 @@ import {
 } from 'modules/touristicContent/interface';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import ToolTip from 'components/ToolTip';
 import { OutdoorCourseDetails } from '../../../../../modules/outdoorCourse/interface';
 import { OutdoorSiteDetails } from '../../../../../modules/outdoorSite/interface';
 import { dataUnits } from '../../../../../modules/results/adapter';
@@ -133,135 +132,105 @@ export const DetailsPreview: React.FC<DetailsPreviewProps> = ({
       </div>
       <div id="details_infoIcons" className="flex flex-wrap">
         {informations.difficulty && (
-          <ToolTip toolTipText="Difficulté" bottom="80%" reverse={true}>
-            <RemoteIconInformation
-              iconUri={informations.difficulty.pictogramUri}
-              className={classNameInformation}
-            >
-              {informations.difficulty.label}
-            </RemoteIconInformation>
-          </ToolTip>
+          <RemoteIconInformation
+            iconUri={informations.difficulty.pictogramUri}
+            className={classNameInformation}
+          >
+            {informations.difficulty.label}
+          </RemoteIconInformation>
         )}
         {informations.period && (
-          <ToolTip toolTipText="Période" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={Calendar} className={classNameInformation}>
-              {informations.period}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={Calendar} className={classNameInformation}>
+            {informations.period}
+          </LocalIconInformation>
         )}
         {informations.orientation && informations.orientation.length > 0 && (
-          <ToolTip toolTipText="Orientation" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={Orientation} className={classNameInformation}>
-              {informations.orientation
-                .map(w => intl.formatMessage({ id: `Wind.${w}` }))
-                .join(' - ')}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={Orientation} className={classNameInformation}>
+            {informations.orientation.map(w => intl.formatMessage({ id: `Wind.${w}` })).join(' - ')}
+          </LocalIconInformation>
         )}
         {informations.wind && informations.wind.length > 0 && (
-          <ToolTip toolTipText="Vent" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={Wind} className={classNameInformation}>
-              {informations.wind.map(w => intl.formatMessage({ id: `Wind.${w}` })).join(' - ')}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={Wind} className={classNameInformation}>
+            {informations.wind.map(w => intl.formatMessage({ id: `Wind.${w}` })).join(' - ')}
+          </LocalIconInformation>
         )}
         {informations.date && (
-          <ToolTip toolTipText="Date" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={Calendar} className={classNameInformation}>
-              {informations.date.beginDate === informations.date.endDate ? (
-                <FormattedMessage
-                  id={'dates.singleDate'}
-                  values={{ date: intl.formatDate(informations.date.beginDate) }}
-                />
-              ) : (
-                <FormattedMessage
-                  id={'dates.multipleDates'}
-                  values={{
-                    beginDate: intl.formatDate(informations.date.beginDate),
-                    endDate: intl.formatDate(informations.date.endDate),
-                  }}
-                />
-              )}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={Calendar} className={classNameInformation}>
+            {informations.date.beginDate === informations.date.endDate ? (
+              <FormattedMessage
+                id={'dates.singleDate'}
+                values={{ date: intl.formatDate(informations.date.beginDate) }}
+              />
+            ) : (
+              <FormattedMessage
+                id={'dates.multipleDates'}
+                values={{
+                  beginDate: intl.formatDate(informations.date.beginDate),
+                  endDate: intl.formatDate(informations.date.endDate),
+                }}
+              />
+            )}
+          </LocalIconInformation>
         )}
         {informations.duration && (
-          <ToolTip toolTipText="Durée" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={Clock} className={classNameInformation}>
-              {informations.duration}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={Clock} className={classNameInformation}>
+            {informations.duration}
+          </LocalIconInformation>
         )}
         {informations.distance && (
-          <ToolTip toolTipText="Distance" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={CodeBrackets} className={classNameInformation}>
-              {informations.distance}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={CodeBrackets} className={classNameInformation}>
+            {informations.distance}
+          </LocalIconInformation>
         )}
         {informations.elevation && (
-          <ToolTip toolTipText="Dénivelé positif" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={TrendingUp} className={classNameInformation}>
-              {informations.elevation}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={TrendingUp} className={classNameInformation}>
+            {informations.elevation}
+          </LocalIconInformation>
         )}
         {informations.negativeElevation && (
-          <ToolTip toolTipText="Dénivelé négatif" bottom="80%" reverse={true}>
-            <LocalIconInformation
-              icon={TrendingUp}
-              iconProps={{
-                className: 'transform -scale-y-100',
-              }}
-              className={classNameInformation}
-            >
-              {informations.negativeElevation}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation
+            icon={TrendingUp}
+            iconProps={{
+              className: 'transform -scale-y-100',
+            }}
+            className={classNameInformation}
+          >
+            {informations.negativeElevation}
+          </LocalIconInformation>
         )}
         {informations.maxElevation && (
-          <ToolTip toolTipText="Altitude" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={Altitude} className={classNameInformation}>
-              {informations.maxElevation}
-              {dataUnits.distance}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={Altitude} className={classNameInformation}>
+            {informations.maxElevation}
+            {dataUnits.distance}
+          </LocalIconInformation>
         )}
         {informations.meetingPoint && (
-          <ToolTip toolTipText="Point de rassemblement" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={MeetingPoint} className={classNameInformation}>
-              {informations.meetingPoint}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={MeetingPoint} className={classNameInformation}>
+            {informations.meetingPoint}
+          </LocalIconInformation>
         )}
         {informations.participantNumber && (
-          <ToolTip toolTipText="Nombre de participant" bottom="80%" reverse={true}>
-            <LocalIconInformation icon={Participant} className={classNameInformation}>
-              {informations.participantNumber}
-            </LocalIconInformation>
-          </ToolTip>
+          <LocalIconInformation icon={Participant} className={classNameInformation}>
+            {informations.participantNumber}
+          </LocalIconInformation>
         )}
         {informations.courseType && (
-          <ToolTip toolTipText="Type de course" bottom="80%" reverse={true}>
-            <RemoteIconInformation
-              iconUri={informations.courseType.pictogramUri}
-              className={classNameInformation}
-            >
-              {informations.courseType.label}
-            </RemoteIconInformation>
-          </ToolTip>
+          <RemoteIconInformation
+            iconUri={informations.courseType.pictogramUri}
+            className={classNameInformation}
+          >
+            {informations.courseType.label}
+          </RemoteIconInformation>
         )}
         {Number(informations?.networks?.length) > 0 &&
           informations.networks?.map((network, i) => (
-            <ToolTip toolTipText="Réseau" bottom="80%" reverse={true} key={i}>
-              <RemoteIconInformation
-                iconUri={network.pictogramUri}
-                className={classNameInformation}
-                key={i}
-              >
-                {network.label}
-              </RemoteIconInformation>
-            </ToolTip>
+            <RemoteIconInformation
+              iconUri={network.pictogramUri}
+              className={classNameInformation}
+              key={i}
+            >
+              {network.label}
+            </RemoteIconInformation>
           ))}
       </div>
       {informations.types !== undefined && informations.types.length > 0 && (

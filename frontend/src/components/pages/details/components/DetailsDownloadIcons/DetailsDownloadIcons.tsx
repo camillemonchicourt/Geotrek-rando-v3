@@ -17,7 +17,6 @@ import { TouristicEventDetails } from '../../../../../modules/touristicEvent/int
 import { getGlobalConfig } from '../../../../../modules/utils/api.config';
 import { DetailsButtonDropdown } from '../DetailsButtonDropdown';
 import { useDetailsAndMapContext } from '../../DetailsAndMapContext';
-import ToolTip from 'components/ToolTip';
 
 interface DetailsTopIconsProps {
   details:
@@ -85,46 +84,36 @@ export const DetailsDownloadIcons: React.FC<DetailsTopIconsProps> = ({
 
       <div className="flex space-x-4">
         {details.pdfUri && (
-          <ToolTip toolTipText="Imprimer">
-            <DetailsButton url={details.pdfUri}>
-              <Printer size={30} />
-            </DetailsButton>
-          </ToolTip>
+          <DetailsButton url={details.pdfUri}>
+            <Printer size={30} />
+          </DetailsButton>
         )}
 
         {dropdownButtonOptions.length > 0 && (
-          <ToolTip toolTipText="Télécharger">
-            <DetailsButtonDropdown options={dropdownButtonOptions}>
-              <Download className="text-primary1" size={size} />
-            </DetailsButtonDropdown>
-          </ToolTip>
+          <DetailsButtonDropdown options={dropdownButtonOptions}>
+            <Download className="text-primary1" size={size} />
+          </DetailsButtonDropdown>
         )}
 
         {Number(details.id) && !hideReport && getGlobalConfig().enableReport && (
-          <ToolTip toolTipText="Signaler un problème">
-            <DetailsButton url="#details_report" onClick={() => setReportVisibility(true)}>
-              <AlertTriangle size={size} />
-            </DetailsButton>
-          </ToolTip>
+          <DetailsButton url="#details_report" onClick={() => setReportVisibility(true)}>
+            <AlertTriangle size={size} />
+          </DetailsButton>
         )}
 
         {(details as Details).reservation &&
           (details as Details).reservation_id &&
           getGlobalConfig().reservationPartner &&
           getGlobalConfig().reservationProject && (
-            <ToolTip toolTipText="Réserver">
-              <DetailsButton url="#details_reservation">
-                <Reservation width={30} height={30} />
-              </DetailsButton>
-            </ToolTip>
+            <DetailsButton url="#details_reservation">
+              <Reservation width={30} height={30} />
+            </DetailsButton>
           )}
 
         {is3DfeatureEnabled && (
-          <ToolTip toolTipText="Afficher la 3D">
-            <DetailsButton onClick={() => setOpen3D(true)}>
-              <ThreeDMap size={size} />
-            </DetailsButton>
-          </ToolTip>
+          <DetailsButton onClick={() => setOpen3D(true)}>
+            <ThreeDMap size={size} />
+          </DetailsButton>
         )}
       </div>
     </div>
