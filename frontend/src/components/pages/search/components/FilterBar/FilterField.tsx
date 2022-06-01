@@ -21,7 +21,7 @@ interface Props {
   expanded: boolean;
   onClick: () => void;
   setFilterSelectedOptions: (filterId: string, options: Option[]) => void;
-  setDateFilter: any
+  setDateFilter: () => void;
 }
 
 const BACKGROUND_EXPANDED = '#fefefe';
@@ -36,7 +36,7 @@ const FilterField: React.FC<Props> = ({
   filtersState,
   dateFilter,
   setFilterSelectedOptions,
-  setDateFilter
+  setDateFilter,
 }) => {
   const filtersToDisplay = filtersState.filter(({ id }) => filters?.includes(id));
 
