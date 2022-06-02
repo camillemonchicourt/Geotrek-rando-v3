@@ -88,7 +88,6 @@ export interface RawDetailsProperties {
   source: number[];
   themes: number[];
   web_links: RawWebLink[];
-  gear: string | null;
   ratings: number[];
   ratings_description: string;
 }
@@ -186,7 +185,6 @@ export interface Details extends DetailsHtml {
   reservation: Reservation | null;
   reservation_id: string | null;
   signage: SignageDictionary | null;
-  gear: string | null;
 }
 
 export interface WebLink {
