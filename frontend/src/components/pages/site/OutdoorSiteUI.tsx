@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import MoreLink from 'components/Information/MoreLink';
 import { Layout } from 'components/Layout/Layout';
 import { Modal } from 'components/Modal';
@@ -11,13 +12,13 @@ import { DetailsSection } from 'components/pages/details/components/DetailsSecti
 import { DetailsSource } from 'components/pages/details/components/DetailsSource';
 import { DetailsHeaderMobile, marginDetailsChild } from 'components/pages/details/Details';
 import { useOnScreenSection } from 'components/pages/details/hooks/useHighlightedSection';
-import { generateTouristicContentUrl } from 'components/pages/details/utils';
+import { generateTouristicContentUrl, HtmlText } from 'components/pages/details/utils';
 import { VisibleSectionProvider } from 'components/pages/details/VisibleSectionContext';
 import { AccessChildrenSection } from 'components/pages/site/components/AccessChildrenSection';
 import { OutdoorCoursesChildrenSection } from 'components/pages/site/components/OutdoorCoursesChildrenSection';
 import { OutdoorSiteChildrenSection } from 'components/pages/site/components/OutdoorSiteChildrenSection';
 import React, { useMemo, useRef } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Loader from 'react-loader';
 import { useMediaPredicate } from 'react-media-hook';
 import { colorPalette, sizes, zIndex } from 'stylesheet';
@@ -35,6 +36,7 @@ import { DetailsTopIcons } from '../details/components/DetailsTopIcons';
 import { DetailsCoverCarousel } from '../details/components/DetailsCoverCarousel';
 import { ImageWithLegend } from '../details/components/DetailsCoverCarousel/DetailsCoverCarousel';
 import { DetailsMeteoWidget } from '../details/components/DetailsMeteoWidget';
+import { DetailsAndMapProvider } from '../details/DetailsAndMapContext';
 
 interface Props {
   outdoorSiteUrl: string | string[] | undefined;
@@ -184,19 +186,6 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                       />
                     </div>
 
-                    {Number(outdoorSiteContent?.access?.length) > 0 && (
-                      <div ref={setAccessRef} id="details_trekChildren_ref">
-                        <AccessChildrenSection
-                          accessChildren={outdoorSiteContent?.access}
-                          id={id}
-                          title={intl.formatMessage(
-                            { id: 'outdoorSite.accessFullTitle' },
-                            { count: Number(outdoorSiteContent?.access?.length) },
-                          )}
-                        />
-                      </div>
-                    )}
-
                     {Number(outdoorSiteContent?.pois?.length) > 0 && (
                       <div ref={setPoisRef} id="details_poi_ref">
                         <DetailsCardSection
@@ -282,7 +271,29 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                             }
                           />
                         ))}
+
+                        {outdoorSiteContent.accessibility && (
+                          <div style={{ marginTop: 20 }}>
+                            <strong className="font-bold">
+                              <FormattedMessage id="details.accessibility" /> :{' '}
+                            </strong>
+                            <HtmlText>{parse(outdoorSiteContent.accessibility)}</HtmlText>
+                          </div>
+                        )}
                       </DetailsSection>
+                    )}
+
+                    {Number(outdoorSiteContent?.access?.length) > 0 && (
+                      <div ref={setAccessRef} id="details_trekChildren_ref">
+                        <AccessChildrenSection
+                          accessChildren={outdoorSiteContent?.access}
+                          id={id}
+                          title={intl.formatMessage(
+                            { id: 'outdoorSite.accessFullTitle' },
+                            { count: Number(outdoorSiteContent?.access?.length) },
+                          )}
+                        />
+                      </div>
                     )}
 
                     {Number(outdoorSiteContent?.informationDesks?.length) > 0 && (
@@ -293,24 +304,7 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                           className={marginDetailsChild}
                         >
                           {outdoorSiteContent?.informationDesks?.map((informationDesk, i) => (
-                            <DetailsInformationDesk
-                              key={i}
-                              className={
-                                i < Number(outdoorSiteContent?.informationDesks?.length) - 1
-                                  ? 'mb-8 desktop:mb-12'
-                                  : undefined
-                              }
-                              name={informationDesk.name}
-                              street={informationDesk.street}
-                              postalCode={informationDesk.postalCode}
-                              municipality={informationDesk.municipality}
-                              website={informationDesk.website}
-                              email={informationDesk.email}
-                              phone={informationDesk.phone}
-                              description={informationDesk.description}
-                              photoUrl={informationDesk.photoUrl}
-                              type={informationDesk.type}
-                            />
+                            <DetailsInformationDesk key={i} {...informationDesk} />
                           ))}
                         </DetailsSection>
                       </div>
@@ -389,6 +383,8 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                     className="desktop:flex desktop:z-content desktop:bottom-0 desktop:fixed desktop:right-0 desktop:w-2/5 desktop:top-headerAndDetailsRecapBar"
                   >
                     <DetailsMapDynamicComponent
+                      courses={outdoorSiteContent?.courses}
+                      experiences={outdoorSiteContent?.children}
                       type="DESKTOP"
                       outdoorGeometry={{
                         geometry: outdoorSiteContent.geometry,
@@ -416,6 +412,8 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                         }))}
                       sensitiveAreas={[]}
                       trekId={Number(id)}
+                      informationDesks={outdoorSiteContent?.informationDesks}
+                      signage={outdoorSiteContent.signage}
                     />
                   </div>
                 )}
@@ -430,6 +428,8 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                 displayState={mobileMapState}
               >
                 <DetailsMapDynamicComponent
+                  courses={outdoorSiteContent?.courses}
+                  experiences={outdoorSiteContent?.children}
                   type="MOBILE"
                   outdoorGeometry={{
                     geometry: outdoorSiteContent.geometry,
@@ -457,6 +457,7 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
                     }))}
                   hideMap={hideMobileMap}
                   trekId={Number(id)}
+                  signage={outdoorSiteContent.signage}
                 />
               </MobileMapContainer>
             )}
@@ -464,17 +465,19 @@ const OutdoorSiteUIWithoutContext: React.FC<Props> = ({ outdoorSiteUrl, language
         )}
       </>
     ),
-    [outdoorSiteContent, isLoading, mobileMapState, sectionsPositions],
+    [outdoorSiteContent, isLoading, mobileMapState],
   );
 };
 
 export const OutdoorSiteUI: React.FC<Props> = props => {
   return (
-    <VisibleSectionProvider>
-      <OutdoorSiteUIWithoutContext
-        outdoorSiteUrl={props.outdoorSiteUrl}
-        language={props.language}
-      />
-    </VisibleSectionProvider>
+    <DetailsAndMapProvider>
+      <VisibleSectionProvider>
+        <OutdoorSiteUIWithoutContext
+          outdoorSiteUrl={props.outdoorSiteUrl}
+          language={props.language}
+        />
+      </VisibleSectionProvider>
+    </DetailsAndMapProvider>
   );
 };
