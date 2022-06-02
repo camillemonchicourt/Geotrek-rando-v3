@@ -165,6 +165,14 @@ export const adaptResults = ({
       length2d: rawDetailsProperties.length_2d,
       reservation,
       reservation_id: rawDetailsProperties.reservation_id ?? null,
+      ratings:
+        rawDetailsProperties.ratings?.map(r => {
+          return {
+            ...trekRating[String(r)],
+            scale: trekRatingScale.find(oRS => oRS.id === trekRating[String(r)]?.scale),
+          };
+        }) ?? [],
+      ratingsDescription: rawDetailsProperties.ratings_description ?? '',
       signage,
       ratings:
         rawDetailsProperties.ratings?.map(r => {
