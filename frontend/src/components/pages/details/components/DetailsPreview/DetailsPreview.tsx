@@ -152,7 +152,6 @@ export const DetailsPreview: React.FC<DetailsPreviewProps> = ({
             bottom="80%"
             reverse={true}
           >
-          <ToolTip toolTipText="Période" bottom="80%" reverse={true}>
             <LocalIconInformation icon={Calendar} className={classNameInformation}>
               {informations.period}
             </LocalIconInformation>
@@ -322,6 +321,7 @@ export const DetailsPreview: React.FC<DetailsPreviewProps> = ({
             </ToolTip>
           ))}
       </div>
+
       {informations.types !== undefined && informations.types.length > 0 && (
         <div className="mt-2 desktop:mt-4 text-Mobile-C2 desktop:text-P1">
           {informations.types.map((type, i, allTypes) => (
