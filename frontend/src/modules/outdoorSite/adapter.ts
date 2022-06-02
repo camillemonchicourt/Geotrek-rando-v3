@@ -117,7 +117,7 @@ export const adaptOutdoorSiteDetails = ({
     rawOutdoorSiteDetails?.properties?.information_desks?.map(
       deskId => informationDesksDictionnary[deskId],
     ) ?? [],
-  webLinks: rawOutdoorSiteDetails?.properties?.web_links,
+  webLinks: rawOutdoorSiteDetails?.properties?.web_links ?? null,
   pois,
   touristicContents,
   children,

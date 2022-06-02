@@ -100,7 +100,7 @@ export interface OutdoorSiteDetails extends OutdoorSite {
   labels?: Label[];
   source?: Source[];
   informationDesks?: InformationDesk[];
-  webLinks?: WebLink[];
+  webLinks?: WebLink[] | null;
   pois: Poi[];
   touristicContents: TouristicContent[];
   children: OutdoorSite[];
