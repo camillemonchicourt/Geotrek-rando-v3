@@ -16,9 +16,9 @@ const fieldsParamsDetails = {
 
 export const fetchDetails = (query: APIQuery, id: string): Promise<RawDetails> => {
   try {
-    return GeotrekAPI.get(`/trek/${id}/`, {
-      params: { ...query, ...fieldsParamsDetails, ...portalsFilter },
-    }).then(r => r.data);
+    return GeotrekAPI.get(`/trek/${id}/`, { params: { ...query, ...fieldsParamsDetails } }).then(
+      r => r.data,
+    );
   } catch (e) {
     console.error('Error in details/api', e);
     throw e;

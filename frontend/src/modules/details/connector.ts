@@ -88,6 +88,8 @@ export const getDetails = async (id: string, language: string): Promise<Details>
       children,
       childrenGeometry,
       sensitiveAreas,
+      trekRating,
+      trekRatingScale,
       signage,
       trekRating,
       trekRatingScale,

@@ -1,6 +1,7 @@
 import { CardIcon } from 'components/CardIcon';
 import { SmallCarousel } from 'components/Carousel';
 import styled, { css } from 'styled-components';
+import getConfig from 'next/config';
 import getActivityColor from '../getActivityColor';
 
 interface ResultCardCarouselProps {
