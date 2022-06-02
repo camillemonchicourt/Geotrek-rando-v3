@@ -1,6 +1,7 @@
 import { CardIcon } from 'components/CardIcon';
 import { SmallCarousel } from 'components/Carousel';
 import styled, { css } from 'styled-components';
+import getConfig from 'next/config';
 import getActivityColor from '../getActivityColor';
 
 interface ResultCardCarouselProps {
@@ -20,7 +21,14 @@ export const ResultCardCarousel: React.FC<ResultCardCarouselProps> = ({
   onClickImage,
   asColumn,
 }) => {
-  const files = navigator && navigator?.onLine ? thumbnailUris : thumbnailUris.slice(0, 1);
+  const {
+    publicRuntimeConfig: { colors },
+  } = getConfig();
+
+  const files =
+    typeof navigator !== 'undefined' && navigator?.onLine
+      ? thumbnailUris
+      : thumbnailUris.slice(0, 1);
 
   return (
     <Wrapper

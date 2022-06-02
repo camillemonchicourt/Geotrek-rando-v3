@@ -19,6 +19,7 @@ import { TouristicEventDetails } from '../../../../../modules/touristicEvent/int
 import { getGlobalConfig } from '../../../../../modules/utils/api.config';
 import { DetailsButtonDropdown } from '../DetailsButtonDropdown';
 import { useDetailsAndMapContext } from '../../DetailsAndMapContext';
+import ToolTip from 'components/ToolTip';
 
 interface DetailsTopIconsProps {
   details:

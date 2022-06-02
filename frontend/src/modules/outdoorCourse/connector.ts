@@ -1,4 +1,6 @@
 import { getSignage } from 'modules/signage/connector';
+import { getSensitiveAreas } from 'modules/sensitiveArea/connector';
+import { getGlobalConfig } from 'modules/utils/api.config';
 import { getCities } from '../city/connector';
 import { getOutdoorCourseType } from '../outdoorCourseType/connector';
 import { getOutdoorRating } from '../outdoorRating/connector';
@@ -35,6 +37,7 @@ export const getOutdoorCourseDetails = async (
       outdoorRatingScale,
       outdoorCourseType,
       signage,
+      sensitiveAreas,
     ] = await Promise.all([
       fetchOutdoorCourseDetails({ language }, id),
       getPois(Number(id), language, 'courses'),
@@ -44,6 +47,9 @@ export const getOutdoorCourseDetails = async (
       getOutdoorRatingScale(language),
       getOutdoorCourseType(language),
       getSignage(language, id, 'OUTDOOR_COURSE'),
+      getGlobalConfig().enableSensitiveAreas
+        ? getSensitiveAreas('outdoorCourse', Number(id), language)
+        : [],
     ]);
 
     return adaptOutdoorCourseDetails({
@@ -55,6 +61,7 @@ export const getOutdoorCourseDetails = async (
       outdoorRatingScale,
       outdoorCourseType,
       signage,
+      sensitiveAreas,
     });
   } catch (e) {
     console.error('Error in outdoor course connector', e);

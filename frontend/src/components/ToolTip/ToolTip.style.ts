@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ToolTipText = styled.span<{ color: string; bgcolor: string }>`
+export const ToolTipText = styled.span<{ color: string, bgcolor: string }>`
   visibility: hidden;
   width: 120px;
   background-color: ${props => props.color};
@@ -14,7 +14,7 @@ export const ToolTipText = styled.span<{ color: string; bgcolor: string }>`
   left: 50%;
   margin-left: -60px;
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 100%;
     left: 50%;

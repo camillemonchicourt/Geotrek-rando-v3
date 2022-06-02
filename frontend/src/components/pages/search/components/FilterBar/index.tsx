@@ -17,11 +17,13 @@ import {
   STRUCTURE_ID,
   THEME_ID,
 } from '../../../../../modules/filters/constant';
-import { FilterState, Option } from '../../../../../modules/filters/interface';
+import { DateFilter, FilterState, Option } from '../../../../../modules/filters/interface';
 
 interface Props {
   filtersState: FilterState[];
+  dateFilter: DateFilter;
   setFilterSelectedOptions: (filterId: string, options: Option[]) => void;
+  setDateFilter: any;
   resetFilters: () => void;
   resultsNumber: number;
   language: string;
@@ -80,6 +82,7 @@ export const FILTERS_CATEGORIES = [
     id: EVENT_ID,
     name: <FormattedMessage id={'search.filters.events'} />,
     filters: [EVENT_ID],
+    subFilters: ['date-filter'],
   },
   {
     id: THEME_ID,
@@ -95,7 +98,9 @@ export const FILTERS_CATEGORIES = [
 
 const FilterBarNew: React.FC<Props> = ({
   filtersState,
+  dateFilter,
   setFilterSelectedOptions,
+  setDateFilter,
   resetFilters,
   resultsNumber,
   language,
@@ -129,9 +134,11 @@ const FilterBarNew: React.FC<Props> = ({
             filters={filterField.filters}
             subFilters={filterField.subFilters}
             filtersState={filtersState}
+            dateFilter={dateFilter}
             expanded={expanded === filterField.id}
             onClick={handleClick}
             setFilterSelectedOptions={setFilterSelectedOptions}
+            setDateFilter={setDateFilter}
           />
         );
       })}

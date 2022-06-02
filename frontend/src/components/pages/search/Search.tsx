@@ -1,6 +1,6 @@
 import FilterBarNew from 'components/pages/search/components/FilterBar';
 import useBbox from 'components/pages/search/components/useBbox';
-import React from 'react';
+import React, { useState } from 'react';
 import { useMediaPredicate } from 'react-media-hook';
 import styled from 'styled-components';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -67,6 +67,8 @@ export const SearchUI: React.FC<Props> = ({ language }) => {
     resetTextFilter,
   } = useTextFilter();
 
+  const [dateFilter, setDateFilter] = useState({ beginDate: '', endDate: '' });
+
   const {
     searchResults,
     isLoading,
@@ -78,7 +80,7 @@ export const SearchUI: React.FC<Props> = ({ language }) => {
     mobileMapState,
     displayMobileMap,
     hideMobileMap,
-  } = useTrekResults({ filtersState, textFilterState, bboxState }, language);
+  } = useTrekResults({ filtersState, textFilterState, bboxState, dateFilter }, language);
 
   const { isMapLoading } = useMapResults({ filtersState, textFilterState }, language);
 
@@ -119,6 +121,8 @@ export const SearchUI: React.FC<Props> = ({ language }) => {
               setFilterSelectedOptions={setFilterSelectedOptions}
               resetFilter={onRemoveAllFiltersClick}
               resultsNumber={searchResults?.resultsNumber ?? 0}
+              dateFilter={dateFilter}
+              setDateFilter={setDateFilter}
             />
           )}
         </>
@@ -129,7 +133,9 @@ export const SearchUI: React.FC<Props> = ({ language }) => {
           {!isMobile && (
             <FilterBarNew
               filtersState={filtersState}
+              dateFilter={dateFilter}
               setFilterSelectedOptions={setFilterSelectedOptions}
+              setDateFilter={setDateFilter}
               resetFilters={onRemoveAllFiltersClick}
               resultsNumber={searchResults?.resultsNumber ?? 0}
               language={language}

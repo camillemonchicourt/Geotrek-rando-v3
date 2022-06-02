@@ -43,6 +43,7 @@ import { VisibleSectionProvider } from './VisibleSectionContext';
 import { DetailsAndMapProvider } from './DetailsAndMapContext';
 import { DetailsSensitiveArea } from './components/DetailsSensitiveArea';
 import { useOnScreenSection } from './hooks/useHighlightedSection';
+import { DetailsGear } from './components/DetailsGear';
 
 interface Props {
   detailsId: string | string[] | undefined;
@@ -146,7 +147,9 @@ export const DetailsUIWithoutContext: React.FC<Props> = ({ detailsId, parentId, 
                         id="details_cover"
                         className={!isFullscreen ? 'desktop:h-coverDetailsDesktop' : 'h-full'}
                       >
-                        {details.imgs.length > 1 && navigator && navigator?.onLine ? (
+                        {details.imgs.length > 1 &&
+                        typeof navigator !== 'undefined' &&
+                        navigator?.onLine ? (
                           <DetailsCoverCarousel
                             attachments={details.imgs}
                             onClickImage={toggleFullscreen}
@@ -235,6 +238,8 @@ export const DetailsUIWithoutContext: React.FC<Props> = ({ detailsId, parentId, 
                       </div>
                     )}
                     {getGlobalConfig().enableMeteoWidget &&
+                      typeof navigator !== 'undefined' &&
+                      navigator.onLine &&
                       details.cities_raw &&
                       details.cities_raw[0] && (
                         <DetailsSection>
@@ -293,6 +298,9 @@ export const DetailsUIWithoutContext: React.FC<Props> = ({ detailsId, parentId, 
                             className={i < details.labels.length - 1 ? 'mt-4 desktop:mt-6' : ''}
                           />
                         ))}
+                        {details.gear !== null && (
+                          <DetailsGear text={details.gear} className="mt-4 desktop:mb-6" />
+                        )}
                       </DetailsSection>
                     )}
 
@@ -433,19 +441,22 @@ export const DetailsUIWithoutContext: React.FC<Props> = ({ detailsId, parentId, 
                       </div>
                     )}
 
-                    {details.reservation && details.reservation_id && (
-                      <DetailsSection
-                        className={marginDetailsChild}
-                        htmlId="details_reservation"
-                        titleId="details.reservation"
-                      >
-                        <DetailsReservationWidget
-                          language={language}
-                          reservation={details.reservation}
-                          id={details.reservation_id}
-                        />
-                      </DetailsSection>
-                    )}
+                    {details.reservation &&
+                      details.reservation_id &&
+                      typeof navigator !== 'undefined' &&
+                      navigator.onLine && (
+                        <DetailsSection
+                          className={marginDetailsChild}
+                          htmlId="details_reservation"
+                          titleId="details.reservation"
+                        >
+                          <DetailsReservationWidget
+                            language={language}
+                            reservation={details.reservation}
+                            id={details.reservation_id}
+                          />
+                        </DetailsSection>
+                      )}
                   </div>
                   <Footer />
                 </div>

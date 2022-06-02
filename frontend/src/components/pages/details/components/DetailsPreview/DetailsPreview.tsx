@@ -152,6 +152,7 @@ export const DetailsPreview: React.FC<DetailsPreviewProps> = ({
             bottom="80%"
             reverse={true}
           >
+          <ToolTip toolTipText="Période" bottom="80%" reverse={true}>
             <LocalIconInformation icon={Calendar} className={classNameInformation}>
               {informations.period}
             </LocalIconInformation>

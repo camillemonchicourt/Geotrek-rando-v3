@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      {headerTop !== undefined && <div id="header_topHtml">{parse(headerTop)}</div>}
+      {typeof headerTop !== 'undefined' && <div id="header_topHtml">{parse(headerTop)}</div>}
       <BurgerMenu config={config.menu} displayState={headerState} menuItems={menuItems} />
       <Container
         state={headerState}
@@ -67,7 +67,9 @@ export const Header: React.FC = () => {
         )}
         <GoToSearchButton className="hidden desktop:block" />
       </Container>
-      {headerBottom !== undefined && <div id="header_bottomHtml">{parse(headerBottom)}</div>}
+      {typeof headerBottom !== 'undefined' && (
+        <div id="header_bottomHtml">{parse(headerBottom)}</div>
+      )}
     </>
   );
 };
