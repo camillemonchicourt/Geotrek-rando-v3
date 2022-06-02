@@ -104,8 +104,6 @@ export interface DetailsHtml {
   disabledInfrastructure: string;
   advice: string;
   gear: string | null;
-  ratings: TrekRatingWithScale[];
-  ratingsDescription: string;
 }
 
 export interface DetailsInformation {
