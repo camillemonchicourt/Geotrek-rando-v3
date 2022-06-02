@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import { Layout } from 'components/Layout/Layout';
 import { Modal } from 'components/Modal';
 import { DetailsAdvice } from 'components/pages/details/components/DetailsAdvice';
@@ -7,7 +8,7 @@ import { DetailsHeader } from 'components/pages/details/components/DetailsHeader
 import { DetailsSection } from 'components/pages/details/components/DetailsSection';
 import { DetailsHeaderMobile, marginDetailsChild } from 'components/pages/details/Details';
 import { useOnScreenSection } from 'components/pages/details/hooks/useHighlightedSection';
-import { generateTouristicContentUrl } from 'components/pages/details/utils';
+import { generateTouristicContentUrl, HtmlText } from 'components/pages/details/utils';
 import { VisibleSectionProvider } from 'components/pages/details/VisibleSectionContext';
 import { OutdoorSiteChildrenSection } from 'components/pages/site/components/OutdoorSiteChildrenSection';
 import { useOutdoorCourse } from 'components/pages/site/useOutdoorCourse';
@@ -252,6 +253,15 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
                             className="mb-4 desktop:mb-6"
                           />
                         )}
+
+                        {outdoorCourseContent.accessibility && (
+                          <div style={{ marginTop: 20 }}>
+                            <strong className="font-bold">
+                              <FormattedMessage id="details.accessibility" /> :{' '}
+                            </strong>
+                            <HtmlText>{parse(outdoorCourseContent.accessibility)}</HtmlText>
+                          </div>
+                        )}
                       </DetailsSection>
                     )}
 
@@ -296,6 +306,7 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
                     className="desktop:flex desktop:z-content desktop:bottom-0 desktop:fixed desktop:right-0 desktop:w-2/5 desktop:top-headerAndDetailsRecapBar"
                   >
                     <DetailsMapDynamicComponent
+                      experiences={outdoorCourseContent?.children}
                       type="DESKTOP"
                       outdoorGeometry={{
                         geometry: outdoorCourseContent.geometry,
@@ -323,6 +334,8 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
                         }))}
                       sensitiveAreas={[]}
                       trekId={Number(id)}
+                      title={outdoorCourseContent.name}
+                      signage={outdoorCourseContent.signage}
                     />
                   </div>
                 )}
@@ -338,6 +351,7 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
                 displayState={mobileMapState}
               >
                 <DetailsMapDynamicComponent
+                  experiences={outdoorCourseContent?.children}
                   type="MOBILE"
                   outdoorGeometry={{
                     geometry: outdoorCourseContent.geometry,
@@ -365,6 +379,8 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
                     }))}
                   hideMap={hideMobileMap}
                   trekId={Number(id)}
+                  title={outdoorCourseContent.name}
+                  signage={outdoorCourseContent.signage}
                 />
               </MobileMapContainer>
             )}
@@ -372,7 +388,7 @@ export const OutdoorCourseUIWithoutContext: React.FC<Props> = ({ outdoorCourseUr
         )}
       </>
     ),
-    [outdoorCourseContent, isLoading, mobileMapState, sectionsPositions],
+    [outdoorCourseContent, isLoading, mobileMapState],
   );
 };
 
