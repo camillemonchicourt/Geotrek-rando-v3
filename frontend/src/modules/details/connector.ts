@@ -13,8 +13,10 @@ import { getTrekResultsById } from 'modules/results/connector';
 import { getSensitiveAreas } from 'modules/sensitiveArea/connector';
 import { getSignage } from 'modules/signage/connector';
 import { getSources } from 'modules/source/connector';
-import { getTouristicContentsNearTarget } from 'modules/touristicContent/connector';
 import { getGlobalConfig } from 'modules/utils/api.config';
+import { getTouristicContentsNearTarget } from 'modules/touristicContent/connector';
+import { getTrekRating } from '../trekRating/connector';
+import { getTrekRatingScale } from '../trekRatingScale/connector';
 import { adaptChildren, adaptResults, adaptTrekChildGeometry } from './adapter';
 import { fetchDetails, fetchTrekChildren, fetchTrekGeometry, fetchTrekName } from './api';
 import { Details, TrekChildGeometry, TrekFamily } from './interface';
@@ -34,6 +36,8 @@ export const getDetails = async (id: string, language: string): Promise<Details>
       cityDictionnary,
       accessibilityDictionnary,
       sourceDictionnary,
+      trekRating,
+      trekRatingScale,
     ] = await Promise.all([
       getActivity(rawDetails.properties.practice, language),
       getDifficulty(rawDetails.properties.difficulty, language),
@@ -45,6 +49,8 @@ export const getDetails = async (id: string, language: string): Promise<Details>
       getCities(language),
       getAccessibilities(language),
       getSources(language),
+      getTrekRating(language),
+      getTrekRatingScale(language),
     ]);
     const [informationDeskDictionnary, signage, labelsDictionnary, children, sensitiveAreas] =
       await Promise.all([
@@ -53,7 +59,7 @@ export const getDetails = async (id: string, language: string): Promise<Details>
         getLabels(language),
         getTrekResultsById(rawDetails.properties.children, language),
         getGlobalConfig().enableSensitiveAreas
-          ? getSensitiveAreas(rawDetails.properties.id, language)
+          ? getSensitiveAreas('trek', rawDetails.properties.id, language)
           : [],
       ]);
     const childrenGeometry = await Promise.all(
@@ -83,6 +89,8 @@ export const getDetails = async (id: string, language: string): Promise<Details>
       childrenGeometry,
       sensitiveAreas,
       signage,
+      trekRating,
+      trekRatingScale,
       reservation:
         getGlobalConfig().reservationPartner && getGlobalConfig().reservationProject
           ? {

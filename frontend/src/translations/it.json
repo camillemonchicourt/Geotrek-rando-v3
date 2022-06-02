@@ -58,6 +58,8 @@
       "filters": "Filtri"
     },
     "textFilter": "Ricerca...",
+    "beginDateFilter": "Data d'inizio",
+    "endDateFilter": "Data di fine",
     "map": {
       "seeResult": "Mostrare i dettagli",
       "seeMe": "Vedere la mia posizione",
@@ -218,5 +220,26 @@
   "dates": {
     "singleDate": "il {date}",
     "multipleDates": "dal {beginDate} al {endDate}"
+  },
+  "tooltip": {
+    "print": "Per stampare",
+    "download": "Scaricare",
+    "report": "Per segnalare un problema",
+    "book": "Prenotare",
+    "show3D": "Mostra 3D",
+    "difficulty": "Difficoltà",
+    "period": "Periodo",
+    "orientation": "Orientamento",
+    "wind": "Vento",
+    "date": "Data",
+    "duration": "Durata",
+    "distance": "Distanza",
+    "elevation": "Elevazione positiva",
+    "negativeElevation": "Elevazione negativa",
+    "altitude": "Altitudine",
+    "assemblyPoint": "punto di raccolta",
+    "numberOfParticipants": "Numero di partecipanti",
+    "courseType": "Tipo de gara",
+    "network": "Rete"
   }
 }

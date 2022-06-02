@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { colorPalette, sizes } from 'stylesheet';
 import { groupBy } from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { FilterState, Option } from '../../../../../modules/filters/interface';
+import { DateFilter, FilterState, Option } from '../../../../../modules/filters/interface';
 import { countFiltersSelected } from '../../../../../modules/filters/utils';
 import getActivityColor from '../ResultCard/getActivityColor';
 import SubFilterField from './SubFilterField';
@@ -17,9 +17,11 @@ interface Props {
   filters?: string[];
   subFilters?: string[] | string[][];
   filtersState: FilterState[];
+  dateFilter: DateFilter;
   expanded: boolean;
   onClick: () => void;
   setFilterSelectedOptions: (filterId: string, options: Option[]) => void;
+  setDateFilter: () => void;
 }
 
 const BACKGROUND_EXPANDED = '#fefefe';
@@ -32,7 +34,9 @@ const FilterField: React.FC<Props> = ({
   filters,
   subFilters,
   filtersState,
+  dateFilter,
   setFilterSelectedOptions,
+  setDateFilter,
 }) => {
   const filtersToDisplay = filtersState.filter(({ id }) => filters?.includes(id));
 
@@ -105,7 +109,9 @@ const FilterField: React.FC<Props> = ({
             <div className="grid grid-cols-3 gap-4">
               <SubFilterField
                 filters={subFiltersToDisplay[index]}
+                dateFilter={dateFilter}
                 setFilterSelectedOptions={setFilterSelectedOptions}
+                setDateFilter={setDateFilter}
               />
             </div>
           </Fragment>

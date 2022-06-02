@@ -56,6 +56,8 @@
       "filters": "Filtros"
     },
     "textFilter": "Buscar...",
+    "beginDateFilter": "Fecha de inicio",
+    "endDateFilter": "Fecha final",
     "map": {
       "seeResult": "Mostrar el detalle",
       "seeMe": "Mostrar mi posición",
@@ -211,5 +213,26 @@
   "dates": {
     "singleDate": "el {date}",
     "multipleDates": "del{beginDate} al {endDate}"
+  },
+  "tooltip": {
+    "print": "Imprimir",
+    "download": "Descargar",
+    "report": "Informar de un problema",
+    "book": "Reservar",
+    "show3D": "Mostrar 3D",
+    "difficulty": "Dificultad",
+    "period": "Período",
+    "orientation": "Orientación",
+    "wind": "Viento",
+    "date": "Fecha",
+    "duration": "Duración",
+    "distance": "Distancia",
+    "elevation": "Elevación positiva",
+    "negativeElevation": "Elevación negativa",
+    "altitude": "Altitud",
+    "assemblyPoint": "Punto de reunión",
+    "numberOfParticipants": "Número de participantes",
+    "courseType": "Tipo de carrera",
+    "network": "La red"
   }
 }

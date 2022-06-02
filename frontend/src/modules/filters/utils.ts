@@ -219,6 +219,21 @@ const getOutdoorRatingFiltersState = ({
   return result;
 };
 
+const getEventsFiltersState = (): FilterState[] => {
+  const result: FilterState[] = [];
+
+  result.push({
+    id: `date-filter`,
+    category: 'event',
+    label: 'event date filter',
+    type: 'MULTIPLE',
+    options: [],
+    selectedOptions: [],
+  });
+
+  return result;
+};
+
 export const computeFiltersToDisplay = ({
   initialFiltersState,
   currentFiltersState,
@@ -239,12 +254,14 @@ export const computeFiltersToDisplay = ({
   const trekPracticeFilter = currentFiltersState.find(i => i.id === PRACTICE_ID);
   const touristicContentFilter = currentFiltersState.find(i => i.id === CATEGORY_ID);
   const outdoorPracticeFilter = currentFiltersState.find(i => i.id === OUTDOOR_ID);
+  const eventFilter = currentFiltersState.find(i => i.id === EVENT_ID);
 
   const currentNumberOfPracticeOptionsSelected = trekPracticeFilter?.selectedOptions.length ?? 0;
   const currentNumberOfTouristicContentOptionsSelected =
     touristicContentFilter?.selectedOptions.length ?? 0;
   const currentNumberOfOutdoorPraticeOptionsSelected =
     outdoorPracticeFilter?.selectedOptions.length ?? 0;
+  const currentNumberOfEventsOptionsSelected = eventFilter?.selectedOptions.length ?? 0;
 
   const filtersToAdd: FilterState[][] = [];
 
@@ -275,6 +292,12 @@ export const computeFiltersToDisplay = ({
           outdoorPractice,
         }),
       );
+    });
+  }
+  // Event filters
+  if (currentNumberOfEventsOptionsSelected > 0 || selectedFilterId === EVENT_ID) {
+    eventFilter?.selectedOptions.forEach(i => {
+      filtersToAdd.push(getEventsFiltersState());
     });
   }
 
@@ -311,6 +334,7 @@ const getInitialFiltersStateWithRelevantFilters = ({
   const practices = initialOptions[PRACTICE_ID];
   const services = initialOptions[CATEGORY_ID];
   const outdoorPractices = initialOptions[OUTDOOR_ID];
+  const events = initialOptions[EVENT_ID];
 
   const result = [...initialStateWithOnlyCommon];
 
@@ -339,6 +363,12 @@ const getInitialFiltersStateWithRelevantFilters = ({
           outdoorPractice,
         }),
       );
+    });
+  }
+
+  if (Number(events?.length) > 0) {
+    events?.forEach(event => {
+      result.push(...getEventsFiltersState());
     });
   }
 

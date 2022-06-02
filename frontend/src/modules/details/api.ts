@@ -9,6 +9,7 @@ const fieldsParams = {
   format: 'geojson',
 };
 
+
 export const fetchDetails = (query: APIQuery, id: string): Promise<RawDetails> => {
   try {
     return GeotrekAPI.get(`/trek/${id}/`, {
