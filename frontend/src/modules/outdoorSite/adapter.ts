@@ -1,5 +1,5 @@
-import { SignageDictionary } from 'modules/signage/interface';
 import { SensitiveArea } from 'modules/sensitiveArea/interface';
+import { SignageDictionary } from 'modules/signage/interface';
 import { getAttachments, getThumbnail, getThumbnails } from 'modules/utils/adapter';
 import { adaptGeometry } from 'modules/utils/geometry';
 import { CityDictionnary } from '../city/interface';
@@ -69,8 +69,8 @@ export const adaptOutdoorSiteDetails = ({
   outdoorRating,
   outdoorRatingScale,
   outdoorSiteType,
+  sensitiveAreas,
   signage,
-  sensitiveAreas
 }: {
   rawOutdoorSiteDetails: RawOutdoorSiteDetails;
   pois: Poi[];
@@ -88,8 +88,8 @@ export const adaptOutdoorSiteDetails = ({
   outdoorRating: OutdoorRatingChoices;
   outdoorRatingScale: OutdoorRatingScale[];
   outdoorSiteType: OutdoorSiteTypeChoices;
-  signage: SignageDictionary | null;
   sensitiveAreas: SensitiveArea[];
+  signage: SignageDictionary | null;
 }): OutdoorSiteDetails => ({
   ...adaptOutdoorSites({
     rawOutdoorSites: [
@@ -137,8 +137,8 @@ export const adaptOutdoorSiteDetails = ({
     }) ?? [],
   ratingsDescription: rawOutdoorSiteDetails.properties.ratings_description,
   typeSite: outdoorSiteType[Number(rawOutdoorSiteDetails?.properties?.type)],
+  sensitiveAreas,
   signage,
-  sensitiveAreas
 });
 
 export const adaptOutdoorSitePopupResults = ({

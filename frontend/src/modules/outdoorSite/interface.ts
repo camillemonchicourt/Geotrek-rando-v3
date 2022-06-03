@@ -1,4 +1,5 @@
 import { Bbox, WebLink } from 'modules/details/interface';
+import { SensitiveArea } from 'modules/sensitiveArea/interface';
 import {
   Attachment,
   LineStringGeometry,
@@ -12,9 +13,6 @@ import {
   RawWebLink,
 } from 'modules/interface';
 import { SignageDictionary } from 'modules/signage/interface';
-import { Attachment, RawAttachment, RawGeometryCollection, RawWebLink } from 'modules/interface';
-import { LineStringGeometry, PointGeometry, PolygonGeometry } from 'modules/interface';
-import { SensitiveArea } from 'modules/sensitiveArea/interface';
 import { Activity } from '../activities/interface';
 import { InformationDesk } from '../informationDesk/interface';
 import { Label } from '../label/interface';

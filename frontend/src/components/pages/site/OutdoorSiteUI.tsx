@@ -36,8 +36,8 @@ import { DetailsTopIcons } from '../details/components/DetailsTopIcons';
 import { DetailsCoverCarousel } from '../details/components/DetailsCoverCarousel';
 import { ImageWithLegend } from '../details/components/DetailsCoverCarousel/DetailsCoverCarousel';
 import { DetailsMeteoWidget } from '../details/components/DetailsMeteoWidget';
-import { DetailsAndMapProvider } from '../details/DetailsAndMapContext';
 import { DetailsSensitiveArea } from '../details/components/DetailsSensitiveArea';
+import { DetailsAndMapProvider } from '../details/DetailsAndMapContext';
 
 interface Props {
   outdoorSiteUrl: string | string[] | undefined;
