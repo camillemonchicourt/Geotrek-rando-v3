@@ -1,34 +1,55 @@
-import { FunctionComponent } from 'react';
-import { ToolTipText, ToolTip } from './ToolTip.style';
+import { FC } from 'react';
 import { colorPalette } from 'stylesheet';
+import { ToolTip, ToolTipText } from './ToolTip.style';
 
 interface Props {
   children?: any;
   toolTipText?: string;
-  bottom?: string;
   color?: string;
   backgroundColor?: string;
-  reverse?: boolean;
+  invertPosition: boolean;
+  role?: string;
+  id?: string;
 }
 
-const ToolTipGT: FunctionComponent<Props> = ({
+const ToolTipGT: FC<Props> = ({
   children,
   toolTipText,
-  bottom = '115%',
   color = colorPalette.primary1,
   backgroundColor = colorPalette.primary2,
-  reverse = false,
+  invertPosition,
+  role = 'tooltip',
+  id,
 }) => (
-  <ToolTip>
-    {children}
-    <ToolTipText
-      style={{ bottom }}
-      color={reverse ? color : backgroundColor}
-      bgcolor={reverse ? backgroundColor : color}
-    >
-      {toolTipText}
-    </ToolTipText>
-  </ToolTip>
+  <>
+    {id !== undefined && (
+      <ToolTip role={role} id={id}>
+        {children}
+        <ToolTipText
+          invertPosition={invertPosition}
+          color={color}
+          bgcolor={backgroundColor}
+          aria-describedby={id}
+          className="tooltipSpan"
+        >
+          {toolTipText}
+        </ToolTipText>
+      </ToolTip>
+    )}
+    {id === undefined && (
+      <ToolTip role={role}>
+        {children}
+        <ToolTipText
+          invertPosition={invertPosition}
+          color={color}
+          bgcolor={backgroundColor}
+          className="tooltipSpan"
+        >
+          {toolTipText}
+        </ToolTipText>
+      </ToolTip>
+    )}
+  </>
 );
 
 export default ToolTipGT;
