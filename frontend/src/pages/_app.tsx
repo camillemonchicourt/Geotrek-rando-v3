@@ -120,7 +120,7 @@ class MyApp extends App<AppProps> {
                 }}
                 onDecline={handleDeclineCookie}
               >
-                Notre site web utilise des cookies nous permettant d'analyser notre trafic.
+                Notre site web utilise des cookies nous permettant d&#39;analyser notre trafic.
               </CookieConsent>
             </ListAndMapProvider>
           </Root>

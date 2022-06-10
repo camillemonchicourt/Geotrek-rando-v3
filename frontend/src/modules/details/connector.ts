@@ -91,8 +91,6 @@ export const getDetails = async (id: string, language: string): Promise<Details>
       trekRating,
       trekRatingScale,
       signage,
-      trekRating,
-      trekRatingScale,
       reservation:
         getGlobalConfig().reservationPartner && getGlobalConfig().reservationProject
           ? {

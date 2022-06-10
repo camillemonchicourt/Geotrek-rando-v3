@@ -177,14 +177,6 @@ export const adaptResults = ({
         }) ?? [],
       ratingsDescription: rawDetailsProperties.ratings_description ?? '',
       signage,
-      ratings:
-        rawDetailsProperties.ratings?.map(r => {
-          return {
-            ...trekRating[String(r)],
-            scale: trekRatingScale.find(oRS => oRS.id === trekRating[String(r)]?.scale),
-          };
-        }) ?? [],
-      ratingsDescription: rawDetailsProperties.ratings_description ?? '',
     };
   } catch (e) {
     console.error('Error in details/adapter', e);
