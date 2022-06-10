@@ -48,13 +48,6 @@ export const DetailsReservationWidget: React.FC<DetailsReservationWidgetProps> =
             spaClient.executePage();
           });
         });
-
-      if (ITW) {
-        const spaClient = ITW.pages.getSinglePageApplicationClient({ layer });
-        AllianceReseaux.jQuery(function () {
-          spaClient.executePage();
-        });
-      }
     })(window, (window as any)?.eitinerance?.core);
   }, []);
 
