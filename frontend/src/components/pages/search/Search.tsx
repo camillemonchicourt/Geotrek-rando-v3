@@ -152,7 +152,7 @@ export const SearchUI: React.FC<Props> = ({ language }) => {
       )}
 
       <Layout>
-        <Container className="flex flex-col">
+        <Container className="flex flex-col" id="search_container">
           {!isMobile && (
             <FilterBarNew
               filtersState={filtersStateWithExclude}
